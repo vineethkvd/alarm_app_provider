@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           create: (context) => WheatherServices(),
         ),
         ChangeNotifierProvider(
-          create: (context) => alarmprovider(),
+          create: (context) => Alarmprovider(),
         ),
       ],
       child: MaterialApp(home: AlarmHome()),

@@ -13,20 +13,6 @@ class WheaterData extends StatefulWidget {
 }
 
 class _WheaterDataState extends State<WheaterData> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    final locationProvider =
-        Provider.of<LocationProvider>(context, listen: false);
-    locationProvider.determinePosition().then((value) {
-      var city = locationProvider.currentLocationName!.locality;
-      if (city != null) {
-        Provider.of<WheatherServices>(context, listen: false)
-            .fetchWeatherDatabyCity(city);
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

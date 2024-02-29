@@ -27,7 +27,7 @@ class _AddAlaramState extends State<AddAlarm> {
   @override
   void initState() {
     controller = TextEditingController();
-    context.read<alarmprovider>().getData();
+    context.read<Alarmprovider>().getData();
     super.initState();
   }
 
@@ -103,12 +103,12 @@ class _AddAlaramState extends State<AddAlarm> {
                 Random random = new Random();
                 int randomNumber = random.nextInt(100);
                 if (dateTime != null) {
-                  context.read<alarmprovider>().setAlaram(controller.text,
+                  context.read<Alarmprovider>().setAlaram(controller.text,
                       dateTime!, true, name!, randomNumber, Milliseconds!,context);
-                  context.read<alarmprovider>().setData();
+                  context.read<Alarmprovider>().setData();
 
                   context
-                      .read<alarmprovider>()
+                      .read<Alarmprovider>()
                       .secduleNotification(notificationtime!, randomNumber);
 
                   Navigator.pop(context);

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../controller/alarm_provider.dart';
+import '../controller/location_provider.dart';
+import '../controller/wheather_services.dart';
 import 'add_alarm.dart';
 
 class AlarmHome extends StatefulWidget {
@@ -19,13 +21,22 @@ class _AlarmHomeState extends State<AlarmHome> {
 
   @override
   void initState() {
-    context.read<alarmprovider>().initializeLocalNotification(context);
+    final locationProvider =
+    Provider.of<LocationProvider>(context, listen: false);
+    locationProvider.determinePosition().then((value) {
+      var city = locationProvider.currentLocationName!.locality;
+      if (city != null) {
+        Provider.of<WheatherServices>(context, listen: false)
+            .fetchWeatherDatabyCity(city);
+      }
+    });
+    context.read<Alarmprovider>().initializeLocalNotification(context);
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {});
     });
 
     super.initState();
-    context.read<alarmprovider>().getData();
+    context.read<Alarmprovider>().getData();
   }
 
   @override
@@ -89,7 +100,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                 ),
               ),
             ),
-            Consumer<alarmprovider>(builder: (context, alarm, child) {
+            Consumer<Alarmprovider>(builder: (context, alarm, child) {
               return Container(
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: ListView.builder(
@@ -98,7 +109,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                       return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.1,
+                            height: MediaQuery.of(context).size.height * 0.11,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.white,
@@ -138,19 +149,10 @@ class _AlarmHomeState extends State<AlarmHome> {
                                           )
                                         ],
                                       ),
-                                      CupertinoSwitch(
-                                          value: (alarm.modelist[index]
-                                                      .milliseconds! <
-                                                  DateTime.now()
-                                                      .microsecondsSinceEpoch)
-                                              ? false
-                                              : alarm.modelist[index].check,
-                                          onChanged: (v) {
-                                            alarm.editSwitch(index, v);
-
-                                            alarm.cancelNotification(
-                                                alarm.modelist[index].id!);
-                                          }),
+                                      IconButton(onPressed: () {
+                                        Provider.of<Alarmprovider>(context, listen: false)
+                                            .deleteAlarm(index, context);
+                                      }, icon: Icon(CupertinoIcons.delete))
                                     ],
                                   ),
                                   Text(alarm.modelist[index].when!)

@@ -12,7 +12,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../main.dart';
 import '../model/alarm_model.dart';
 
-class alarmprovider extends ChangeNotifier {
+class Alarmprovider extends ChangeNotifier {
   late SharedPreferences preferences;
 
   List<AlarmModel> modelist = [];
@@ -139,5 +139,14 @@ class alarmprovider extends ChangeNotifier {
 
   cancelNotification(int notificationid) async {
     await flutterLocalNotificationsPlugin!.cancel(notificationid);
+  }
+  void deleteAlarm(int index, BuildContext context) {
+    try {
+      modelist.removeAt(index);
+      setData();
+      showSnackBar("Alarm deleted successfully", context);
+    } catch (e) {
+      showSnackBar("Failed to delete alarm: $e", context);
+    }
   }
 }
