@@ -38,16 +38,32 @@ class _WheaterDataState extends State<WheaterData> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Consumer<LocationProvider>(
-              builder: (context, loacationProvider, child) => Text(
-                "Current Location is ${loacationProvider.currentLocationName != null ? loacationProvider.currentLocationName!.locality ?? "Unknown" : "Fetching..."}",
-                style: TextStyle(fontSize: 25),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    color: Colors.white,
+                  ),
+                  Consumer<LocationProvider>(
+                    builder: (context, loacationProvider, child) => Text(
+                      "${loacationProvider.currentLocationName != null ? loacationProvider.currentLocationName!.locality ?? "Unknown" : "Fetching..."}",
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ),
-            Consumer<WheatherServices>(
-              builder: (context, loacationProvider, child) => Text(
-                "Current Location is ${wheatherServices.wheatherModel != null && wheatherServices.wheatherModel!.clouds != null ? wheatherServices.wheatherModel!.clouds!.all : "Fetching..."}",
-                style: TextStyle(fontSize: 25),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Consumer<WheatherServices>(
+                builder: (context, loacationProvider, child) => Text(
+                  "Feels Like ${wheatherServices.wheatherModel != null && wheatherServices.wheatherModel!.main != null ? "${wheatherServices.wheatherModel!.main!.temp!.toStringAsFixed(2)}°C" : "Fetching..."}",
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
               ),
             )
           ],

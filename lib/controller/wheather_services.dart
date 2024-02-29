@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:alarm_app_provider/utils/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +16,7 @@ class WheatherServices extends ChangeNotifier {
 
   Future<void> fetchWeatherDatabyCity(String city) async {
     String url =
-        "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9249449b9d9dc2cb85b7c036ab971241&units=metric";
+        "${ApiKey.baseUrl}=${city}&appid=${ApiKey.apiKey}&units=metric";
 
     try {
       _isLoading = true;
