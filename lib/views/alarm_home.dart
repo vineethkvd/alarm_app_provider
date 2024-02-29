@@ -63,9 +63,10 @@ class _AlarmHomeState extends State<AlarmHome> {
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.indigo,
         title: const Text(
-          'Alarmy ',
+          'Alarm',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,

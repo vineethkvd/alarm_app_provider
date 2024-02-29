@@ -1,4 +1,4 @@
-import 'package:alarm_app_provider/views/alarm_home.dart';
+import 'package:alarm_app_provider/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           create: (context) => Alarmprovider(),
         ),
       ],
-      child: MaterialApp(home: AlarmHome()),
+      child: MaterialApp(home: SplashScreen()),
     );
   }
 }

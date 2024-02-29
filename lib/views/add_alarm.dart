@@ -38,7 +38,7 @@ class _AddAlaramState extends State<AddAlarm> {
         backgroundColor: Colors.indigo,
         automaticallyImplyLeading: true,
         title: const Text(
-          'Add Alarm',
+          'Add alarm',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
